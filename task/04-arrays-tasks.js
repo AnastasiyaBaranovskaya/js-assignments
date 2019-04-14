@@ -38,7 +38,7 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-   throw new Error('Not implemented');
+   return new Array(len).fill(0).map((_, i) => 2*i+1);
 }
 
 
@@ -200,7 +200,7 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-   throw new Error('Not implemented');
+   return arr.join('\n');
 }
 
 /**
@@ -281,14 +281,9 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   var arr1 = [];
-   arr.map(function(item) {
-         var n = arr.indexOf(item);
-         for (var i=0; i <= n; i++){ 
-            arr1.push(item)
-         };
-      });
-   return arr1;
+   const transform = arr => arr.reduce((a, item, i) => (
+      a.concat(Array.from({ length: i + 1 },() => item))), []);
+ return transform(arr);
 }
 
 
@@ -329,13 +324,8 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   var count = 0;
-   arr.forEach(function(item){
-      if (item > 0 && typeof(item) == 'number'){
-         count++
-      }
-   });
-   return count;
+   var a = arr.filter(item => item > 0 && typeof(item) == 'number');
+   return a.length;
 }
  
 /** 
@@ -352,8 +342,12 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   throw new Error('Not implemented');
-}
+   var digits = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']; 
+   return arr.sort(function(a, b) { 
+       if (digits.indexOf(a) > digits.indexOf(b)) {return 1}; 
+       if (digits.indexOf(a) < digits.indexOf(b)) {return -1}; 
+   }); 
+}  
 
 /** 
  * Returns the sum of all items in the specified array of numbers
@@ -388,13 +382,8 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-   var count = 0;
-  for (var i=0; i < arr.length; i++){
-     if (Boolean(arr[i])==false){
-        count++
-     } 
-  }
-  return count;
+   var a = arr.filter(item => Boolean(item) == false);
+   return a.length;
 }
 
 /**
@@ -412,14 +401,9 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr, item) {
-var count = 0;
-for (var i = 0; i < arr.length; i++){
-  if (arr[i] === item){
-    count++;
-  };
-};
-return count;
-}
+   var a = arr.filter((_,i) => arr[i] === item );
+   return a.length;
+}  
 
 /**
  * Concatenates all elements from specified array into single string with ',' delimeter  
@@ -493,8 +477,7 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]   
  */
 function getIdentityMatrix(n) {
-   throw new Error('Not implemented');
-}
+   throw new Error('Not implemented');}
 
 /**
  * Creates an array of integers from the specified start to end (inclusive)
@@ -510,12 +493,7 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-   var arr = [];
-   for ( var i = start; i <= end; i++){
-      arr.push(i);
-   }
-   return arr;
-}
+   throw new Error('Not implemented');}
 
 /**
  * Returns array containing only unique values from the specified array.
@@ -529,7 +507,12 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-   throw new Error('Not implemented');
+var obj = {};
+  for (var i = 0; i < arr.length; i++) {
+    var str = arr[i];
+    obj[str] = true;
+  }
+  return Object.keys(obj); 
 }
 
 /**
